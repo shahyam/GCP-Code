@@ -1,0 +1,5 @@
+Runtime: aspnetcore
+env: flex
+endpoints_api_service:
+  name: hellowold-210813.appspot.com
+  rollout_strategy: managed
