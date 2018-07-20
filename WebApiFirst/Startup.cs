@@ -10,7 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-
+using Swashbuckle.AspNetCore.Swagger;
 namespace WebApiFirst
 {
     public class Startup
@@ -26,6 +26,11 @@ namespace WebApiFirst
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.AddSwaggerGen(c=>{
+                c.SwaggerDoc("v1",
+                new Info{ Title="My API", Version="v1"});
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,7 +44,10 @@ namespace WebApiFirst
             {
                 app.UseHsts();
             }
-
+app.UseSwagger();
+app.UseSwaggerUI(c=>{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json","My Api V1");
+            });
             app.UseHttpsRedirection();
             app.UseMvc();
         }
